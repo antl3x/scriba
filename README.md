@@ -1,1 +1,2 @@
-! README.md
+# About (WIP)
+Scriba is an open-source toolset designed to help developers easily embed AI tasks like auto-fill or text summarization into their web-based products. It simplifies the process of adding complex AI capability to applications, saving time and avoiding the need to build these functionalities from scratch.

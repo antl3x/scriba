@@ -1,0 +1,11 @@
+# Folders
+dist/
+node_modules/
+tmp/
+
+# Files
+.dec.
+.DS_Store
+.tmp
+.tgz
+.log
