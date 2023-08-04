@@ -1,0 +1,17 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "postinstall": "scripty"
+  },
+  "devDependencies": {
+    "husky": "^5.0.0-alpha.5",
+    "prettier": "^2.8.8",
+    "scripty": "^2.1.1"
+  },
+  "scripty": {
+    "logLevel": "warn",
+    "silent": true,
+    "path": ".scripts"
+  }
+}
