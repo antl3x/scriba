@@ -1,4 +1,4 @@
-import { useNoop } from '_$Utils/[ use ] useNoop';
+import { useNoop } from '_$Utils/[ use ] useNoop'
 
 /* ------------------------------ subscribe ------------------------------ */
 export function subscribe(
@@ -7,10 +7,10 @@ export function subscribe(
 ) {
   if (store == null) {
     for (const callback of callbacks) {
-      callback(undefined);
+      callback(undefined)
     }
-    return useNoop;
+    return useNoop
   }
-  const unsub = store.subscribe(...callbacks);
-  return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+  const unsub = store.subscribe(...callbacks)
+  return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub
 }

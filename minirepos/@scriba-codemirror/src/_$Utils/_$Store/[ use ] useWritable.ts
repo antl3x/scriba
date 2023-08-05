@@ -1,5 +1,5 @@
-import { useSafeNotEqual } from '../[ use ] useSafeNotEqual';
-import { useNoop } from '../[ use ] useNoop';
+import { useSafeNotEqual } from '../[ use ] useSafeNotEqual'
+import { useNoop } from '../[ use ] useNoop'
 
 import {
   StartStopNotifier,
@@ -7,8 +7,8 @@ import {
   Subscriber,
   Unsubscriber,
   Updater,
-  Writable,
-} from './Types';
+  Writable
+} from './Types'
 
 /* -------------------------------------------------------------------------- */
 /*                                 useWritable                                */
@@ -17,35 +17,34 @@ import {
  * Create a `Writable` store that allows both updating and reading by subscription.
  */
 
-
 /* --------------------------- SUBSCRIBER_QUEUE --------------------------- */
 
-export const SUBSCRIBER_QUEUE: (SubscribeInvalidateTuple<any> | any)[] = [];
+export const SUBSCRIBER_QUEUE: (SubscribeInvalidateTuple<any> | any)[] = []
 
 export function useWritable<T>(
   value: T,
   start: StartStopNotifier<T> = useNoop
 ): Writable<T> {
-  let stop: Unsubscriber | null = null;
-  const subscribers = new Set<SubscribeInvalidateTuple<T>>();
+  let stop: Unsubscriber | null = null
+  const subscribers = new Set<SubscribeInvalidateTuple<T>>()
 
   /* --------------------------------- _fnSet --------------------------------- */
 
   function _fnSet(new_value: T) {
     if (useSafeNotEqual(value, new_value)) {
-      value = new_value;
+      value = new_value
       if (stop) {
         // store is ready
-        const __runQueue = !SUBSCRIBER_QUEUE.length;
+        const __runQueue = !SUBSCRIBER_QUEUE.length
         for (const subscriber of subscribers) {
-          subscriber[1]();
-          SUBSCRIBER_QUEUE.push(subscriber, value);
+          subscriber[1]()
+          SUBSCRIBER_QUEUE.push(subscriber, value)
         }
         if (__runQueue) {
           for (let i = 0; i < SUBSCRIBER_QUEUE.length; i += 2) {
-            SUBSCRIBER_QUEUE[i][0](SUBSCRIBER_QUEUE[i + 1]);
+            SUBSCRIBER_QUEUE[i][0](SUBSCRIBER_QUEUE[i + 1])
           }
-          SUBSCRIBER_QUEUE.length = 0;
+          SUBSCRIBER_QUEUE.length = 0
         }
       }
     }
@@ -54,7 +53,7 @@ export function useWritable<T>(
   /* --------------------------------- _fnUpdate --------------------------------- */
 
   function _fnUpdate(fn: Updater<T>) {
-    _fnSet(fn(value));
+    _fnSet(fn(value))
   }
 
   /* -------------------------------- _fnSubscribe ------------------------------- */
@@ -63,19 +62,19 @@ export function useWritable<T>(
     run: Subscriber<T>,
     invalidate = useNoop
   ): Unsubscriber {
-    const subscriber: SubscribeInvalidateTuple<T> = [run, invalidate];
-    subscribers.add(subscriber);
+    const subscriber: SubscribeInvalidateTuple<T> = [run, invalidate]
+    subscribers.add(subscriber)
     if (subscribers.size === 1) {
-      stop = start(_fnSet, _fnUpdate) || useNoop;
+      stop = start(_fnSet, _fnUpdate) || useNoop
     }
-    run(value);
+    run(value)
     return () => {
-      subscribers.delete(subscriber);
+      subscribers.delete(subscriber)
       if (subscribers.size === 0 && stop) {
-        stop();
-        stop = null;
+        stop()
+        stop = null
       }
-    };
+    }
   }
-  return { set: _fnSet, update: _fnUpdate, subscribe: _fnSubscribe };
+  return { set: _fnSet, update: _fnUpdate, subscribe: _fnSubscribe }
 }

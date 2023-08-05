@@ -1,5 +1,5 @@
-import { subscribe } from './subscribe';
-import { Readable } from './Types';
+import { subscribe } from './subscribe'
+import { Readable } from './Types'
 
 /* -------------------------------------------------------------------------- */
 /*                                   useGet                                   */
@@ -9,7 +9,7 @@ import { Readable } from './Types';
  *
  */
 export function useGet<T>(store: Readable<T>): T {
-  let value: T | undefined;
-  subscribe(store, (_) => (value = _))();
-  return value as T;
+  let value: T | undefined
+  subscribe(store, _ => (value = _))()
+  return value as T
 }

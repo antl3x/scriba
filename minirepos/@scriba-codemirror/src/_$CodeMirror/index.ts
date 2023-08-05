@@ -1,1 +1,1 @@
-export { useExtension } from './[ use ] useExtension';
+export { Extension } from './[ _use ] Extension'

@@ -1,5 +1,5 @@
-import { useWritable } from './[ use ] useWritable';
-import { Readable, StartStopNotifier } from './Types';
+import { useWritable } from './[ use ] useWritable'
+import { Readable, StartStopNotifier } from './Types'
 
 /* -------------------------------------------------------------------------- */
 /*                                 useReadable                                */
@@ -12,6 +12,6 @@ export function useReadable<T>(
   start: StartStopNotifier<T>
 ): Readable<T> {
   return {
-    subscribe: useWritable(value, start).subscribe,
-  };
+    subscribe: useWritable(value, start).subscribe
+  }
 }

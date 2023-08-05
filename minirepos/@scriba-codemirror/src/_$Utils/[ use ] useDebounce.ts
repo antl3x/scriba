@@ -14,20 +14,20 @@ export function useDebounce<T extends (...args: any[]) => any>(
 ) {
   let cancel = () => {
     // do nothing
-  };
+  }
   // type Awaited<T> = T extends PromiseLike<infer U> ? U : T
-  type ReturnT = Awaited<ReturnType<T>>;
+  type ReturnT = Awaited<ReturnType<T>>
   const wrapFunc = (...args: Parameters<T>): Promise<ReturnT> => {
-    cancel();
+    cancel()
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => resolve(fn(...args)), wait);
+      const timer = setTimeout(() => resolve(fn(...args)), wait)
       cancel = () => {
-        clearTimeout(timer);
+        clearTimeout(timer)
         if (abortValue !== undefined) {
-          reject(abortValue);
+          reject(abortValue)
         }
-      };
-    });
-  };
-  return wrapFunc;
+      }
+    })
+  }
+  return wrapFunc
 }

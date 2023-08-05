@@ -1,12 +1,12 @@
-import { _useExtension } from '_$CodeMirror';
-import * as $SuggestionService from '_$Suggestion';
-import { useSettingsStore, tSettingsStore } from './_$SettingsStore';
+import { useExtension } from '_$CodeMirror'
+import * as $SuggestionService from '_$Suggestion'
+import { useSettingsStore, tSettingsStore } from './_$SettingsStore'
 
 /* -------------------------------- useScriba ------------------------------- */
 
 type intUseScribaInput = NonNullable<tSettingsStore> & {
-  codeDebounce?: number;
-};
+  codeDebounce?: number
+}
 
 /**
  * @param options Settings Options
@@ -25,8 +25,8 @@ export function useScriba(options: intUseScribaInput) {
     codeContext = [],
     codeDebounce = 275,
     modelLanguage,
-    modelName,
-  } = options;
+    modelName
+  } = options
 
   useSettingsStore.set({
     apiProxyEndpoint,
@@ -34,10 +34,10 @@ export function useScriba(options: intUseScribaInput) {
     codeContext,
     codeDebounce,
     modelLanguage,
-    modelName,
-  });
+    modelName
+  })
 
-  $SuggestionService._useRegisterHandlers();
+  $SuggestionService._useRegisterHandlers()
 
-  return _useExtension;
+  return useExtension
 }
