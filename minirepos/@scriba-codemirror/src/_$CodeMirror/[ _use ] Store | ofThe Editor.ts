@@ -1,15 +1,15 @@
 import { useWritable } from '_$Utils/_$Store'
 
 /* -------------------------------------------------------------------------- */
-/*                               Editor                                       */
+/*                               Store_ofThe_Editor                                       */
 /* -------------------------------------------------------------------------- */
 
 export type tStore = null | {
-  '<cause>': 'EDITOR:DOCUMENT_WAS_CHANGED'
+  '<cause>': 'DOCUMENT_WAS_CHANGED'
   linesBefore: string[]
   currentLineBeforeContent: string
   currentLineAfterContent: string
   linesAfter: string[]
 }
 
-export const Editor = useWritable<tStore>(null)
+export const Store_ofThe_Editor = useWritable<tStore>(null)
