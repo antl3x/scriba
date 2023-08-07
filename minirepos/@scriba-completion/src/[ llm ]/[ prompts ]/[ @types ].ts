@@ -16,12 +16,12 @@ export interface ILLMPrompt<Provider extends ILLMProvider<any>> {
    */
   fetchFillInTheMiddleSuggestions: (i: {
     linesContext: tLinesContext
-  }) => Promise<(string | null)[]>
+  }) => Promise<string[] | null>
 
   /**
    * Fetches a suggestion from the provider
    */
   fetchLeftToRightSuggestions: (i: {
     linesContext: tLinesContext
-  }) => Promise<(string | null)[]>
+  }) => Promise<string[] | null>
 }

@@ -5,6 +5,6 @@ import * as $CMS from '@codemirror/state'
 /* -------------------------------------------------------------------------- */
 
 export const StateEffect_of_TEXT_SUGGESTION_WAS_MADE = $CMS.StateEffect.define<{
-  suggestedText: string | null
+  suggestedTexts: string[] | null
   doc: $CMS.Text
 }>()

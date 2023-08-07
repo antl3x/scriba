@@ -8,7 +8,11 @@ import {
 } from '@codemirror/view'
 
 import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[ state-effects ].js'
-import { StateField_of_TextSuggestion } from './[ state-fields ].js'
+import {
+  StateField_of_LinesContext,
+  StateField_of_TextSuggestion
+} from './[ state-fields ].js'
+import { Facet_of_LLMPrompt } from './[ facets ].js'
 
 /* -------------------------------------------------------------------------- */
 /*                               ViewPlugin_of_Main                           */
@@ -19,6 +23,7 @@ export const ViewPlugin_of_Main = () => {
     class Plugin {
       async update(update: ViewUpdate) {
         const doc = update.state.doc
+        const llmPrompt = update.state.facet(Facet_of_LLMPrompt)
 
         // Only fetch if the document has changed
         // and no previous suggestion is present
@@ -29,15 +34,12 @@ export const ViewPlugin_of_Main = () => {
           return
         }
 
-        // Define which fetch function based on the model name
-        // const fetchFn = useGet(useSettingsStore)?.modelName.includes('code-')
-        //   ? $SuggestionService._useFetchCodeSuggestion
-        //   : $SuggestionService._useFetchTextSuggestion
-
         // Fetch the suggestion
         update.view.dispatch({
           effects: StateEffect_of_TEXT_SUGGESTION_WAS_MADE.of({
-            suggestedText: '', //(await fetchFn()).value,
+            suggestedTexts: await llmPrompt.fetchLeftToRightSuggestions({
+              linesContext: update.state.field(StateField_of_LinesContext)
+            }),
             doc
           })
         })
