@@ -1,7 +1,7 @@
 import * as $CMS from '@codemirror/state'
-import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[state-effects].mjs'
-import { useGetLinesContext } from './[_utils_].mjs'
-import { tLinesContext } from '[_shared_]/$Types.mjs'
+import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[ state-effects ].mjs'
+import { useGetLinesContext } from './[ _utils_ ].mjs'
+import { tLinesContext } from '[ _shared_ ]/[ @types ].mjs'
 
 /* -------------------------------------------------------------------------- */
 /*                        StateField_of_TextSuggestion                        */

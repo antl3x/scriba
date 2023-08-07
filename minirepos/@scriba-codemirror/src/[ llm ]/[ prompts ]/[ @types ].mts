@@ -1,9 +1,9 @@
-import { tLinesContext } from '[_shared_]/$Types.mjs'
-import { ILLMProvider } from '[llm]/[providers]/[@types].mjs'
-
 /* -------------------------------------------------------------------------- */
 /*                                 ILLMPrompt                                 */
 /* -------------------------------------------------------------------------- */
+
+import { tLinesContext } from '[ _shared_ ]/[ @types ].mjs'
+import { ILLMProvider } from '[ llm ]/[ providers ]/[ @types ].mjs'
 
 export interface ILLMPrompt<Provider extends ILLMProvider<any>> {
   '<meta>': {
