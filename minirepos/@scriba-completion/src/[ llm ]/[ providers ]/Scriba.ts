@@ -1,4 +1,4 @@
-import { io } from 'socket.io-client'
+import { Socket, io } from 'socket.io-client'
 
 import { ILLMProvider } from './[ @types ]'
 
@@ -6,19 +6,15 @@ import { ILLMProvider } from './[ @types ]'
 /*                                   Scriba                                   */
 /* -------------------------------------------------------------------------- */
 
-type tInput = {
+type tFnSig = (i: {
   authUserJWT: string
   apiProxyEndpoint?: string
-}
+}) => ILLMProvider<Socket>
 
 /**
  * Scriba LLM Provider
- * @param i
- * @returns
  */
-export const Scriba = (
-  i: tInput
-): ILLMProvider<ReturnType<typeof _connectWsClient>> => {
+export const Scriba: tFnSig = i => {
   const meta = {
     '<vendor>': 'Scriba' as const,
     '<vendorCli>': _connectWsClient(i)
@@ -35,7 +31,7 @@ export const Scriba = (
 /**
  * Scriba utilises a websocket client to communicate with the server.
  */
-function _connectWsClient(i: tInput) {
+function _connectWsClient(i: Parameters<tFnSig>[0]) {
   console.debug('[@scriba/obsidian] starting websocket client')
 
   const wsCli = io(i.apiProxyEndpoint || 'https://api.usescriba.com', {

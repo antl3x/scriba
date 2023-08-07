@@ -5,17 +5,15 @@ import { ILLMProvider } from './[ @types ]'
 /*                                   OpenAI                                   */
 /* -------------------------------------------------------------------------- */
 
-type tInput = {
+type tFnSig = (i: {
   API_KEY: string
   openAiConfigurationInstance?: Configuration
-}
+}) => ILLMProvider<OpenAIApi>
 
 /**
  * OpenAI LLM Provider
- * @param i
- * @returns
  */
-export const OpenAI = (i: tInput): ILLMProvider<OpenAIApi> => {
+export const OpenAI: tFnSig = i => {
   const _openAIConfigurationInstance =
     i.openAiConfigurationInstance ??
     new Configuration({
