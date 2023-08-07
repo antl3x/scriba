@@ -1,1 +1,1 @@
-export { useScriba } from './$Main/[ use ] useScriba'
+export { useScriba } from './[main]/[ use ] useScriba'

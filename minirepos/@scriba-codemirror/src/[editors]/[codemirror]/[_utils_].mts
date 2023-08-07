@@ -1,19 +1,20 @@
-import { ViewUpdate } from '@codemirror/view'
-
 /* -------------------------------------------------------------------------- */
 /*                             useGetLinesContext                             */
 /* -------------------------------------------------------------------------- */
+
+import { EditorState } from '@codemirror/state'
+import { tLinesContext } from '[_shared_]/$Types.mjs'
+
 /**
  * This function is used to extract the context of the lines before and after the
  * current cursor position.
  */
 export function useGetLinesContext(i: {
-  update: ViewUpdate
+  state: EditorState
   nLinesBefore?: number
   nLinesAfter?: number
-}) {
-  const { update, nLinesBefore, nLinesAfter } = i
-  const { state } = update
+}): tLinesContext {
+  const { state, nLinesBefore, nLinesAfter } = i
   const { doc, selection } = state
   const { head: cursorHead } = selection.main
 

@@ -49,6 +49,7 @@
     "dependencies": {
         "@types/lodash-es": "^4.17.8",
         "lodash-es": "^4.17.21",
+        "openai": "^3.3.0",
         "socket.io-client": "^4.7.1"
     }
 }

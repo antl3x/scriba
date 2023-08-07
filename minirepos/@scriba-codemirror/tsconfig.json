@@ -17,6 +17,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "baseUrl": ".",
+    "typeRoots": ["./src/@types"],
     "paths": {
       "*": ["src/*"]
     }
