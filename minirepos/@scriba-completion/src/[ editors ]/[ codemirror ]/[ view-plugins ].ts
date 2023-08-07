@@ -7,8 +7,8 @@ import {
   WidgetType
 } from '@codemirror/view'
 
-import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[ state-effects ].mjs'
-import { StateField_of_TextSuggestion } from './[ state-fields ].mjs'
+import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[ state-effects ].js'
+import { StateField_of_TextSuggestion } from './[ state-fields ].js'
 
 /* -------------------------------------------------------------------------- */
 /*                               ViewPlugin_of_Main                           */

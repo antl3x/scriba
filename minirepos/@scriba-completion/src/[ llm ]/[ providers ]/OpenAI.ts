@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai'
-import { ILLMProvider } from './[ @types ].mjs'
+import { ILLMProvider } from './[ @types ]'
 
 /* -------------------------------------------------------------------------- */
 /*                                   OpenAI                                   */

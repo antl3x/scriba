@@ -1,12 +1,12 @@
 {
-    "name": "@scriba/codemirror",
-    "description": "A Scriba plugin for CodeMirror",
+    "name": "@scriba/completion",
+    "description": "AI-powered auto-completion for web-based text/code editors.",
     "version": "1.0.0",
     "homepage": "https://github.com/useScriba/useScriba",
     "repository": {
         "type": "git",
         "url": "ssh://git@github.com/useScriba/useScriba.git",
-        "directory": "minirepos/@scriba-codemirror"
+        "directory": "minirepos/@scriba-completion"
     },
     "type": "module",
     "files": [

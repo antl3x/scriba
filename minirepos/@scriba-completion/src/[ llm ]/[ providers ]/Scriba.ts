@@ -1,5 +1,6 @@
-import { ILLMProvider } from './[ @types ].mjs'
 import { io } from 'socket.io-client'
+
+import { ILLMProvider } from './[ @types ]'
 
 /* -------------------------------------------------------------------------- */
 /*                                   Scriba                                   */

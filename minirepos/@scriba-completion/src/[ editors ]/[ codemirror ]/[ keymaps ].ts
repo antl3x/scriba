@@ -6,8 +6,8 @@ import {
 } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 
-import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[ state-effects ].mjs'
-import { StateField_of_TextSuggestion } from './[ state-fields ].mjs'
+import { StateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './[ state-effects ]'
+import { StateField_of_TextSuggestion } from './[ state-fields ]'
 
 /* -------------------------------------------------------------------------- */
 /*                           Keymap_to_AcceptFullText                         */

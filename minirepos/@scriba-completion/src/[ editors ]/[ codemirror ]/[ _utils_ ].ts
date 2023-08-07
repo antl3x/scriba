@@ -1,10 +1,10 @@
+import { EditorState } from '@codemirror/state'
+
+import { tLinesContext } from '[ _shared_ ]/[ @types ]'
+
 /* -------------------------------------------------------------------------- */
 /*                             useGetLinesContext                             */
 /* -------------------------------------------------------------------------- */
-
-import { EditorState } from '@codemirror/state'
-import { tLinesContext } from '[ _shared_ ]/[ @types ].mjs'
-
 /**
  * This function is used to extract the context of the lines before and after the
  * current cursor position.

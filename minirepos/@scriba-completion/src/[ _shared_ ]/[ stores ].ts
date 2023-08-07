@@ -1,4 +1,4 @@
-import { useIsFunction, useNoop, useSafeNotEqual } from './[ utils ].mjs'
+import { useIsFunction, useNoop, useSafeNotEqual } from './[ utils ]'
 
 /* -------------------------------------------------------------------------- */
 /*                                 useWritable                                */

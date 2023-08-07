@@ -1,5 +1,6 @@
-import { Scriba } from '[llm]/[providers]'
-import { ILLMPrompt } from './[ @types ].mjs'
+import { Scriba } from '[ llm ]/[ providers ]'
+
+import { ILLMPrompt } from './[ @types ]'
 
 /* -------------------------------------------------------------------------- */
 /*                      ScribaDefaultTextSuggestionPrompt                     */
