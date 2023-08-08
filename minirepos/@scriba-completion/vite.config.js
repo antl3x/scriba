@@ -1,28 +1,28 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vite'
+import { resolve } from 'path'
+import dts from 'vite-plugin-dts'
+import pkg from './package.json'
 
 export default defineConfig({
   build: {
     sourcemap: false,
     lib: {
-      formats: ['es', 'cjs'],
-      entry: [resolve(__dirname, 'src/index.ts')],
+      formats: ['esm', 'cjs'],
+      entry: [resolve(new URL('./src/index.ts', import.meta.url).pathname)]
     },
     rollupOptions: {
-      external: ['@codemirror/state', '@codemirror/view'],
-    },
+      external: Object.keys(pkg.peerDependencies || {}),
+      output: {
+        dir: 'dist',
+        preserveModules: true,
+        preserveModulesRoot: 'src'
+      }
+    }
   },
   plugins: [dts()],
   resolve: {
     alias: {
-      '( Main )': resolve(__dirname, 'src/( Main )'),
-      '( Utils )': resolve(__dirname, 'src/( Utils )'),
-      '( CodeMirrorExtension )': resolve(
-        __dirname,
-        'src/( CodeMirrorExtension )'
-      ),
-      '( SuggestionService )': resolve(__dirname, 'src/( SuggestionService )'),
-    },
-  },
-});
+      '@editors': [resolve(new URL('./src/@editors', import.meta.url).pathname)]
+    }
+  }
+})
