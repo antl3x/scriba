@@ -30,7 +30,6 @@ export const useStateField_of_TextSuggestion = $CMS.StateField.define<{
         e.is(useStateEffect_of_FULL_TEXT_WAS_ACCEPTED)
     )
 
-    console.log(effect, effect?.is(useStateEffect_of_WORD_WAS_ACCEPTED))
     if (effect?.is(useStateEffect_of_WORD_WAS_ACCEPTED)) {
       return {
         suggestedTexts: effect.value.newSuggestedTexts,

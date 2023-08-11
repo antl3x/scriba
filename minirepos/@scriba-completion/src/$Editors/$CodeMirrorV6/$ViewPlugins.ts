@@ -7,16 +7,14 @@ import {
   WidgetType
 } from '@codemirror/view'
 
+import { useFacet_of_LLMPrompt } from './$Facets'
 import {
   useStateEffect_of_FULL_TEXT_WAS_ACCEPTED,
   useStateEffect_of_TEXT_SUGGESTION_WAS_MADE,
   useStateEffect_of_WORD_WAS_ACCEPTED
 } from './$StateEffects'
-import {
-  useStateField_of_LinesContext,
-  useStateField_of_TextSuggestion
-} from './$StateFields'
-import { useFacet_of_LLMPrompt } from './$Facets'
+import { useStateField_of_TextSuggestion } from './$StateFields'
+import { useGetLinesContext } from './$_Utils_'
 
 /* -------------------------------------------------------------------------- */
 /*                               useViewPlugin_of_Main                        */
@@ -38,20 +36,35 @@ export const useViewPlugin_of_Main = () => {
           )
         )
 
-        console.log('fst view', hasEffect)
-
         // Only fetch if the document has changed
         // and no previous suggestion is present
         if (!update.docChanged || hasEffect) {
           return
         }
 
+        const linesContext = useGetLinesContext({ state: update.state })
+
+        // If there is no content after the cursor, we should provide left-to-right suggestions.
+        const isLeftToRight =
+          !linesContext.currentLineAfterContent ||
+          linesContext.linesAfter.length === 0
+
+        // decide which fetch function to use
+        const fetchFn = isLeftToRight
+          ? llmPrompt.fetchLeftToRightSuggestions
+          : llmPrompt.fetchFillInTheMiddleSuggestions
+
+        const suggestedTexts = await fetchFn({
+          linesContext
+        })
+
+        // we early-return if no suggestions were found
+        if (!suggestedTexts) return
+
         // Fetch the suggestion
         update.view.dispatch({
           effects: useStateEffect_of_TEXT_SUGGESTION_WAS_MADE.of({
-            suggestedTexts: await llmPrompt.fetchLeftToRightSuggestions({
-              linesContext: update.state.field(useStateField_of_LinesContext)
-            }),
+            suggestedTexts,
             doc
           })
         })
@@ -90,7 +103,6 @@ export const useViewPlugin_of_SuggestionRendering = () => {
       }
 
       update(update: ViewUpdate) {
-        console.log('update', update.transactions)
         const { currentText } = update.state.field(
           useStateField_of_TextSuggestion
         )
