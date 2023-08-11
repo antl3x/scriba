@@ -1,2 +1,2 @@
-export * as fromLLM from './@llm'
-export * as fromEditors from './@editors'
+export * as fromLLM from './$LLM'
+export * as fromEditors from './$Editors'

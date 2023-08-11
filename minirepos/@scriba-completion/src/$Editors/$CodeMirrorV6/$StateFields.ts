@@ -1,0 +1,53 @@
+import * as $CMS from '@codemirror/state'
+
+import { useStateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './$StateEffects'
+import { tLinesContext } from '_$Shared_/_$Types_'
+import { useGetLinesContext } from './$_Utils_'
+
+/* -------------------------------------------------------------------------- */
+/*                        useStateField_of_TextSuggestion                     */
+/* -------------------------------------------------------------------------- */
+
+export const useStateField_of_TextSuggestion = $CMS.StateField.define<{
+  suggestedTexts: null | string[]
+  currentText: null | string
+}>({
+  /* --------------------------------- create --------------------------------- */
+  create() {
+    return { suggestedTexts: null, currentText: null }
+  },
+
+  /* --------------------------------- update --------------------------------- */
+  update(__, tx) {
+    const effect = tx.effects.find(e =>
+      e.is(useStateEffect_of_TEXT_SUGGESTION_WAS_MADE)
+    )
+
+    if (tx.state.doc && effect && tx.state.doc == effect.value.doc) {
+      return {
+        suggestedTexts: effect.value.suggestedTexts,
+        currentText: effect.value.suggestedTexts[0]
+      }
+    }
+
+    return { suggestedTexts: null, currentText: null }
+  }
+})
+
+/* -------------------------------------------------------------------------- */
+/*                         useStateField_of_LinesContext                      */
+/* -------------------------------------------------------------------------- */
+
+export const useStateField_of_LinesContext =
+  $CMS.StateField.define<tLinesContext>({
+    /* --------------------------------- create --------------------------------- */
+    create(state) {
+      return useGetLinesContext({ state })
+    },
+
+    /* --------------------------------- update --------------------------------- */
+    update(prevState, tx) {
+      if (!tx.docChanged) return prevState
+      return useGetLinesContext({ state: tx.state })
+    }
+  })

@@ -15,14 +15,15 @@ export default defineConfig({
       output: {
         dir: 'dist',
         preserveModules: true,
-        preserveModulesRoot: 'src'
+        preserveModulesRoot: 'src',
+        sanitizeFileName: i => i
       }
     }
   },
-  plugins: [dts()],
   resolve: {
     alias: {
-      '@editors': [resolve(new URL('./src/@editors', import.meta.url).pathname)]
+      _$Shared_: resolve(new URL('./src/_$Shared_', import.meta.url).pathname)
     }
-  }
+  },
+  plugins: [dts()]
 })

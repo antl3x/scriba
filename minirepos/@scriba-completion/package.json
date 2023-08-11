@@ -22,11 +22,6 @@
             "require": "./dist/index.cjs"
         },
         "./*": {
-            "types": "./dist/*.d.ts",
-            "import": "./dist/*.esm.js",
-            "require": "./dist/*.cjs"
-        },
-        "./*": {
             "types": "./dist/*/index.d.ts",
             "import": "./dist/*/index.esm.js",
             "require": "./dist/*/index.cjs"
@@ -35,9 +30,9 @@
     "typesVersions": {
         "*": {
             "*": [
+                "./dist/*",
                 "./dist/*/index.d.ts",
                 "./dist/*.d.ts",
-                "./dist/index.d.ts",
                 "*"
             ]
         }
@@ -53,12 +48,13 @@
     "devDependencies": {
         "@codemirror/state": "^6.2.1",
         "@codemirror/view": "^6.15.3",
+        "@types/lodash-es": "^4.17.8",
         "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@typescript-eslint/parser": "^5.62.0",
-        "@types/lodash-es": "^4.17.8",
         "eslint": "^8.46.0",
         "eslint-config-prettier": "^8.10.0",
         "eslint-plugin-prettier": "^4.2.1",
+        "monaco-editor": "^0.41.0",
         "prettier": "2.8.2",
         "scripty": "^2.1.1",
         "typescript": "^4.9.5",
@@ -71,5 +67,13 @@
         "lodash-es": "^4.17.21",
         "openai": "^3.3.0",
         "socket.io-client": "^4.7.1"
+    },
+    "peerDependenciesMeta": {
+        "@codemirror/state": {
+            "optional": true
+        },
+        "@codemirror/view": {
+            "optional": true
+        }
     }
 }
