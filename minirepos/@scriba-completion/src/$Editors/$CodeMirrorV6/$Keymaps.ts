@@ -6,7 +6,10 @@ import {
 } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 
-import { useStateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './$StateEffects'
+import {
+  useStateEffect_of_FULL_TEXT_WAS_ACCEPTED,
+  useStateEffect_of_WORD_WAS_ACCEPTED
+} from './$StateEffects'
 import { useStateField_of_TextSuggestion } from './$StateFields'
 
 /* -------------------------------------------------------------------------- */
@@ -63,9 +66,6 @@ export const useKeymap_to_AcceptWordByWord = (key = 'Control-ArrowRight') => {
             return false
           }
 
-          // suggestedText is current suggestion less the first word
-          const newCurrentSuggest = currentText.split(' ').slice(1).join(' ')
-
           view.dispatch({
             ..._insertSuggestion(
               view.state,
@@ -73,11 +73,7 @@ export const useKeymap_to_AcceptWordByWord = (key = 'Control-ArrowRight') => {
               view.state.selection.main.head,
               view.state.selection.main.head,
               'wordByWord'
-            ),
-            effects: useStateEffect_of_TEXT_SUGGESTION_WAS_MADE.of({
-              suggestedTexts: [newCurrentSuggest],
-              doc: view.state.doc
-            })
+            )
           })
 
           return true
@@ -98,39 +94,56 @@ function _insertSuggestion(
   to: number,
   type: 'wordByWord' | 'full'
 ): TransactionSpec {
-  const suggestion =
-    type == 'full'
-      ? text
-      : text.split(' ')[0] + (text[text.length - 1] == ' ' ? '' : ' ')
+  const suggestion = __createSuggestion(text, type)
+  const effectToDispatch = __determineEffectToDispatch(
+    type,
+    suggestion,
+    state,
+    text
+  )
 
   return {
-    ...state.changeByRange(range => {
-      if (range == state.selection.main) {
-        return {
-          changes: { from: from, to: to, insert: suggestion },
-          range: EditorSelection.cursor(from + suggestion.length)
-        }
-      }
-
-      const len = to - from
-      if (len > 0) {
-        return {
-          changes: { from: from, to: to, insert: suggestion },
-          range: EditorSelection.range(
-            from + suggestion.length,
-            to + suggestion.length
-          )
-        }
-      }
-
-      return {
-        changes: { from: from, to: to, insert: suggestion },
-        range: EditorSelection.cursor(from + suggestion.length)
-      }
-    }),
-    effects: useStateEffect_of_TEXT_SUGGESTION_WAS_MADE.of({
-      suggestedTexts: [text],
-      doc: state.doc
-    })
+    ...state.changeByRange(() => __getChangesAndRange(from, to, suggestion)),
+    effects: effectToDispatch
   }
+}
+
+/* -------------------------- __getChangesAndRange -------------------------- */
+
+function __getChangesAndRange(from: number, to: number, suggestion: string) {
+  return {
+    changes: { from: from, to: to, insert: suggestion },
+    range: EditorSelection.range(
+      from + suggestion.length,
+      to + suggestion.length
+    )
+  }
+}
+
+/* ----------------------- __determineEffectToDispatch ---------------------- */
+
+function __determineEffectToDispatch(
+  type: 'wordByWord' | 'full',
+  suggestion: string,
+  state: EditorState,
+  text: string
+) {
+  return type == 'wordByWord'
+    ? useStateEffect_of_WORD_WAS_ACCEPTED.of({
+        acceptedWord: suggestion,
+        doc: state.doc,
+        newSuggestedTexts: [text.split(' ').slice(1).join(' ')]
+      })
+    : useStateEffect_of_FULL_TEXT_WAS_ACCEPTED.of({
+        acceptedFullText: suggestion,
+        doc: state.doc
+      })
+}
+
+/* -------------------------- __createSuggestion -------------------------- */
+
+function __createSuggestion(text: string, type: 'wordByWord' | 'full'): string {
+  return type == 'full'
+    ? text
+    : text.split(' ')[0] + (text[text.length - 1] == ' ' ? '' : ' ')
 }

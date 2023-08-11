@@ -7,7 +7,11 @@ import {
   WidgetType
 } from '@codemirror/view'
 
-import { useStateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './$StateEffects'
+import {
+  useStateEffect_of_FULL_TEXT_WAS_ACCEPTED,
+  useStateEffect_of_TEXT_SUGGESTION_WAS_MADE,
+  useStateEffect_of_WORD_WAS_ACCEPTED
+} from './$StateEffects'
 import {
   useStateField_of_LinesContext,
   useStateField_of_TextSuggestion
@@ -25,12 +29,20 @@ export const useViewPlugin_of_Main = () => {
         const doc = update.state.doc
         const llmPrompt = update.state.facet(useFacet_of_LLMPrompt)[0]
 
+        const hasEffect = update.transactions.find(tx =>
+          tx.effects.find(
+            e =>
+              e.is(useStateEffect_of_TEXT_SUGGESTION_WAS_MADE) ||
+              e.is(useStateEffect_of_WORD_WAS_ACCEPTED) ||
+              e.is(useStateEffect_of_FULL_TEXT_WAS_ACCEPTED)
+          )
+        )
+
+        console.log('fst view', hasEffect)
+
         // Only fetch if the document has changed
         // and no previous suggestion is present
-        if (
-          !update.docChanged ||
-          !!update.state.field(useStateField_of_TextSuggestion)?.currentText
-        ) {
+        if (!update.docChanged || hasEffect) {
           return
         }
 
@@ -78,6 +90,7 @@ export const useViewPlugin_of_SuggestionRendering = () => {
       }
 
       update(update: ViewUpdate) {
+        console.log('update', update.transactions)
         const { currentText } = update.state.field(
           useStateField_of_TextSuggestion
         )

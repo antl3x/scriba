@@ -1,6 +1,10 @@
 import * as $CMS from '@codemirror/state'
 
-import { useStateEffect_of_TEXT_SUGGESTION_WAS_MADE } from './$StateEffects'
+import {
+  useStateEffect_of_FULL_TEXT_WAS_ACCEPTED,
+  useStateEffect_of_TEXT_SUGGESTION_WAS_MADE,
+  useStateEffect_of_WORD_WAS_ACCEPTED
+} from './$StateEffects'
 import { tLinesContext } from '_$Shared_/_$Types_'
 import { useGetLinesContext } from './$_Utils_'
 
@@ -19,9 +23,20 @@ export const useStateField_of_TextSuggestion = $CMS.StateField.define<{
 
   /* --------------------------------- update --------------------------------- */
   update(__, tx) {
-    const effect = tx.effects.find(e =>
-      e.is(useStateEffect_of_TEXT_SUGGESTION_WAS_MADE)
+    const effect = tx.effects.find(
+      e =>
+        e.is(useStateEffect_of_TEXT_SUGGESTION_WAS_MADE) ||
+        e.is(useStateEffect_of_WORD_WAS_ACCEPTED) ||
+        e.is(useStateEffect_of_FULL_TEXT_WAS_ACCEPTED)
     )
+
+    console.log(effect, effect?.is(useStateEffect_of_WORD_WAS_ACCEPTED))
+    if (effect?.is(useStateEffect_of_WORD_WAS_ACCEPTED)) {
+      return {
+        suggestedTexts: effect.value.newSuggestedTexts,
+        currentText: effect.value.newSuggestedTexts[0]
+      }
+    }
 
     if (tx.state.doc && effect && tx.state.doc == effect.value.doc) {
       return {

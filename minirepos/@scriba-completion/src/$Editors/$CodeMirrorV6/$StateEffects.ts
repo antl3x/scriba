@@ -9,3 +9,23 @@ export const useStateEffect_of_TEXT_SUGGESTION_WAS_MADE =
     suggestedTexts: string[] | null
     doc: $CMS.Text
   }>()
+
+/* -------------------------------------------------------------------------- */
+/*                     useStateEffect_of_WORD_WAS_ACCEPTED                    */
+/* -------------------------------------------------------------------------- */
+
+export const useStateEffect_of_WORD_WAS_ACCEPTED = $CMS.StateEffect.define<{
+  newSuggestedTexts: string[]
+  acceptedWord: string
+  doc: $CMS.Text
+}>()
+
+/* -------------------------------------------------------------------------- */
+/*                  useStateEffect_of_FULL_TEXT_WAS_ACCEPTED                  */
+/* -------------------------------------------------------------------------- */
+
+export const useStateEffect_of_FULL_TEXT_WAS_ACCEPTED =
+  $CMS.StateEffect.define<{
+    acceptedFullText: string
+    doc: $CMS.Text
+  }>()
