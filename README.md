@@ -9,7 +9,7 @@
 <a href="https://github.com/useScriba/useScriba">GitHub</a> 
 
 <span> · </span>
-<a href="https://useScriba.com/discord">Discord</a>
+<a href="https://discord.gg/PSYAWkUtSV">Discord</a>
 </div>
 
 ## Introduction
