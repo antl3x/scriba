@@ -4,10 +4,9 @@
 <div align="center">Enabling AI code completion in web-based code editors.</div>
 <br />
 <div align="center">
-<a href="https://usescriba.com">Website</a> 
+<a href="https://usescriba.com">Playground</a> 
 <span> · </span>
-<a href="https://github.com/useScriba/useScriba">GitHub</a> 
-
+<a href="https://usescriba.com">Website</a> 
 <span> · </span>
 <a href="https://discord.gg/PSYAWkUtSV">Discord</a>
 </div>
