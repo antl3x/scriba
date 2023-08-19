@@ -6,7 +6,7 @@
 <div align="center">
 <a href="https://usescriba.com">Playground</a> 
 <span> · </span>
-<a href="https://usescriba.com">Website</a> 
+<a href="https://docs.usescriba.com">Docs</a> 
 <span> · </span>
 <a href="https://discord.gg/PSYAWkUtSV">Discord</a>
 </div>
