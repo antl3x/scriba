@@ -1,4 +1,4 @@
-![OG Image](https://github.com/useScriba/useScriba/assets/26308297/523e22b4-609d-4883-bdac-ce7f9dfa1624)
+![OG Image](https://github.com/useScriba/useScriba/assets/26308297/20f9f2ae-6be1-4fcf-bf7a-225e107de1f3)
 
 <div align="center"><strong>Scriba</strong></div>
 <div align="center">Enabling AI code completion in web-based code editors.</div>
